@@ -27,21 +27,20 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.7'
+
+      - name: Make Gradle Executable
+        run: chmod +x ./gradlew
 
       - name: Run Unit Tests
-        working-directory: JarvisUltimate
-        run: gradle :app:testDebugUnitTest
+        run: ./gradlew :app:testDebugUnitTest
 
       - name: Build Jarvis APK
-        working-directory: JarvisUltimate
-        run: gradle :app:assembleDebug
+        run: ./gradlew :app:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Jarvis-Ultimate-APK
-          path: JarvisUltimate/app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           
